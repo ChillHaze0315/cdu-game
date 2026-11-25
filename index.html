@@ -6,84 +6,101 @@
 <title>成都大学 · 漫游</title>
 <style>
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;height:100%;overflow:hidden;background:#0d1117;
-    font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#e6edf3;user-select:none}
+  html,body{margin:0;height:100%;overflow:hidden;
+    background:radial-gradient(circle at 50% 40%,#5a3d22,#2b1d12 70%);
+    font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:#f6ead2;user-select:none}
   #cv{display:block;position:absolute;inset:0;cursor:default}
   #cv.edit{cursor:crosshair}
-  .panel{position:absolute;background:rgba(16,22,32,.86);border:1px solid rgba(120,170,255,.28);
-    border-radius:14px;backdrop-filter:blur(10px);box-shadow:0 8px 28px rgba(0,0,0,.45)}
+  .panel{position:absolute;border-radius:10px;
+    background:linear-gradient(#c08a4e,#9a6536 55%,#84532b);
+    border:3px solid #4a2e18;
+    box-shadow:inset 0 0 0 2px #dcae74,inset 0 -6px 0 rgba(0,0,0,.18),0 10px 26px rgba(0,0,0,.45);
+    text-shadow:0 1px 0 rgba(0,0,0,.35)}
   /* 左上 信息 */
   #hud{left:14px;top:14px;padding:10px 14px;font-size:13px;line-height:1.7;max-width:300px}
-  #hud b{color:#7cc4ff}
-  #hud .k{display:inline-block;min-width:18px;padding:1px 6px;margin:0 2px;border-radius:5px;
-    background:rgba(124,196,255,.16);border:1px solid rgba(124,196,255,.35);font-size:12px;
-    text-align:center;color:#cfe8ff}
+  #hud b{color:#fff3c4}
+  #hud .k{display:inline-block;min-width:18px;padding:1px 6px;margin:0 2px;border-radius:4px;
+    background:linear-gradient(#f4dfb2,#e2c184);border:1px solid #6b4520;font-size:12px;
+    text-align:center;color:#4a2d12;text-shadow:none;font-weight:700}
   /* 右上 控制 */
   #ctrl{right:14px;top:14px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:212px}
   .row{display:flex;align-items:center;gap:8px;font-size:13px}
-  .row label{color:#9fb0c8;white-space:nowrap}
+  .row label{color:#fff0d0;white-space:nowrap;font-weight:700}
   select,input[type=range]{width:100%}
-  select{background:#131c2b;color:#e6edf3;border:1px solid rgba(120,170,255,.35);
-    border-radius:8px;padding:5px 8px;font-size:13px;font-family:inherit}
-  input[type=range]{-webkit-appearance:none;height:4px;border-radius:2px;background:#2a3a52;outline:none}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;
-    background:#5aa9ff;border:2px solid #0d1117;cursor:pointer}
-  button{font-family:inherit;font-size:13px;color:#e6edf3;background:rgba(90,169,255,.16);
-    border:1px solid rgba(120,170,255,.4);border-radius:9px;padding:6px 10px;cursor:pointer;
-    transition:.15s}
-  button:hover{background:rgba(90,169,255,.3)}
-  button.on{background:#2f6fbf;border-color:#5aa9ff}
-  button.danger{background:rgba(255,90,90,.14);border-color:rgba(255,120,120,.45)}
-  button.danger:hover{background:rgba(255,90,90,.3)}
-  #speedVal{color:#7cc4ff;min-width:34px;text-align:right;font-variant-numeric:tabular-nums}
+  select{background:linear-gradient(#f4dfb2,#e2c184);color:#4a2d12;border:2px solid #6b4520;
+    border-radius:6px;padding:4px 8px;font-size:13px;font-family:inherit;font-weight:700}
+  input[type=range]{-webkit-appearance:none;height:6px;border-radius:3px;background:#5e3b1c;outline:none;
+    border:1px solid #3a2312}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#ffe9b8,#d8a763 70%);border:2px solid #4a2e18;cursor:pointer}
+  button{font-family:inherit;font-size:13px;font-weight:700;color:#3f2711;
+    background:linear-gradient(#f6e2b6,#dcb87c 60%,#cba469);
+    border:2px solid #5e3b1c;border-radius:7px;padding:5px 10px;cursor:pointer;
+    box-shadow:inset 0 0 0 1px #fff3d0,0 2px 0 #4a2e18;transition:.12s;text-shadow:0 1px 0 rgba(255,255,255,.45)}
+  button:hover{filter:brightness(1.07)}
+  button:active{transform:translateY(2px);box-shadow:inset 0 0 0 1px #fff3d0}
+  button.on{background:linear-gradient(#ffe08a,#f0b93f);border-color:#8a5c12}
+  button.danger{background:linear-gradient(#ffd9d0,#e79c8c);border-color:#7a3326}
+  button.danger:hover{filter:brightness(1.05)}
+  #speedVal{color:#fff3c4;min-width:34px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
   /* 左侧 互动点列表 */
   #list{left:14px;bottom:74px;width:270px;max-height:calc(100% - 230px);overflow:auto;
     padding:10px;display:none;flex-direction:column;gap:6px}
   #list.show{display:flex}
-  #list .hd{font-size:12px;color:#8ea3bd;display:flex;justify-content:space-between;align-items:center;
+  #list .hd{font-size:12px;color:#fff0d0;font-weight:700;display:flex;justify-content:space-between;align-items:center;
     padding:0 2px 4px}
-  .item{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.045);
-    border:1px solid rgba(120,170,255,.16);border-radius:9px;padding:5px 7px}
-  .item .nm{flex:1;min-width:0;background:transparent;border:none;color:#e6edf3;font-size:13px;
-    font-family:inherit;padding:2px 0;outline:none}
-  .item .nm:focus{color:#fff;border-bottom:1px solid rgba(124,196,255,.6)}
-  .item.mini{font-size:12px;color:#9fb0c8}
-  .item .btn{padding:2px 7px;font-size:11px;border-radius:7px}
-  .empty{font-size:12px;color:#6f8098;line-height:1.7;padding:6px 2px}
+  .item{display:flex;align-items:center;gap:6px;background:linear-gradient(#f7e7c4,#eed9ae);
+    border:2px solid #6b4520;border-radius:6px;padding:4px 6px}
+  .item .nm{flex:1;min-width:0;background:transparent;border:none;color:#3f2711;font-size:13px;
+    font-weight:700;font-family:inherit;padding:2px 0;outline:none;text-shadow:none}
+  .item .nm:focus{color:#000;border-bottom:2px solid #c8901f}
+  .item.mini{font-size:12px;color:#6b4a2a}
+  .item .btn{padding:2px 7px;font-size:11px;border-radius:5px}
+  .empty{font-size:12px;color:#ffe7bd;line-height:1.7;padding:6px 2px}
   /* 底部 提示 */
-  #hint{left:50%;transform:translateX(-50%);bottom:16px;padding:8px 16px;font-size:13px;
-    color:#cfe8ff;white-space:nowrap;display:none}
+  #hint{left:50%;transform:translateX(-50%);bottom:16px;padding:7px 18px;font-size:13px;font-weight:700;
+    color:#3f2711;white-space:nowrap;display:none;text-shadow:none;
+    background:linear-gradient(#f7e7c4,#e0c48d);border:3px solid #4a2e18;border-radius:8px;
+    box-shadow:inset 0 0 0 2px #fff3d0,0 6px 16px rgba(0,0,0,.4)}
   #hint.show{display:block}
   /* 详情卡片 */
   #modal{position:fixed;inset:0;background:rgba(5,8,14,.82);display:none;
     align-items:center;justify-content:center;z-index:50;padding:26px}
   #modal.show{display:flex}
   #card{position:relative;max-width:min(1100px,94vw);max-height:92vh;display:flex;
-    flex-direction:column;gap:10px;background:rgba(16,22,32,.96);border:1px solid rgba(120,170,255,.3);
-    border-radius:16px;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-  #card img{max-width:86vw;max-height:76vh;object-fit:contain;border-radius:10px;display:block}
-  #card .ttl{font-size:16px;font-weight:700;color:#fff;padding:0 34px 0 4px}
-  #card .ph{width:min(760px,84vw);height:min(420px,52vh);border-radius:10px;display:flex;
+    flex-direction:column;gap:10px;
+    background:linear-gradient(#c08a4e,#9a6536 55%,#84532b);
+    border:4px solid #4a2e18;border-radius:12px;padding:16px;
+    box-shadow:inset 0 0 0 2px #dcae74,0 20px 60px rgba(0,0,0,.6)}
+  #card img{max-width:86vw;max-height:76vh;object-fit:contain;border-radius:6px;display:block;
+    border:3px solid #4a2e18}
+  #card .ttl{font-size:17px;font-weight:700;color:#fff8e8;padding:0 34px 0 4px;
+    text-shadow:0 2px 0 rgba(0,0,0,.35)}
+  #card .ph{width:min(760px,84vw);height:min(420px,52vh);border-radius:8px;display:flex;
     align-items:center;justify-content:center;flex-direction:column;gap:10px;
-    background:repeating-linear-gradient(45deg,#141c29,#141c29 12px,#18212f 12px,#18212f 24px);
-    border:1px dashed rgba(120,170,255,.35);color:#8ea3bd;font-size:14px;text-align:center;line-height:1.9}
-  #card .ph .big{font-size:26px;color:#cfe8ff;font-weight:700}
+    background:repeating-linear-gradient(45deg,#f3e3c0,#f3e3c0 12px,#e9d5ac 12px,#e9d5ac 24px);
+    border:3px dashed #8a5c2a;color:#6b4a2a;font-size:14px;text-align:center;line-height:1.9;
+    text-shadow:none}
+  #card .ph .big{font-size:26px;color:#4a2d12;font-weight:700}
   #close{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;
     padding:0;font-size:17px;line-height:1}
   /* 提示条 */
   #toast{position:fixed;left:50%;top:22px;transform:translateX(-50%) translateY(-14px);
-    background:rgba(30,44,66,.96);border:1px solid rgba(120,170,255,.4);border-radius:10px;
-    padding:9px 16px;font-size:13px;color:#dbe9ff;opacity:0;transition:.28s;pointer-events:none;z-index:99}
+    background:linear-gradient(#f7e7c4,#e0c48d);border:3px solid #4a2e18;border-radius:8px;
+    padding:8px 18px;font-size:13px;font-weight:700;color:#3f2711;opacity:0;transition:.28s;
+    pointer-events:none;z-index:99;box-shadow:inset 0 0 0 2px #fff3d0,0 6px 16px rgba(0,0,0,.4);
+    text-shadow:none}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   /* 触屏 */
   body.touch .kb{display:none}
   body:not(.touch) .tp{display:none}
   #stick{position:fixed;left:20px;bottom:20px;width:132px;height:132px;border-radius:50%;
-    background:rgba(20,30,45,.42);border:2px solid rgba(120,170,255,.45);display:none;
-    touch-action:none;z-index:60}
+    background:rgba(74,46,24,.34);border:3px solid #4a2e18;display:none;
+    box-shadow:inset 0 0 0 2px rgba(220,174,116,.7);touch-action:none;z-index:60}
   #stick.on{display:block}
   #knob{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;
-    border-radius:50%;background:rgba(90,169,255,.85);border:2px solid rgba(255,255,255,.72);
+    border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9b8,#c08a4e 75%);
+    border:3px solid #4a2e18;
     box-shadow:0 4px 14px rgba(0,0,0,.45);will-change:transform}
   #rot{position:fixed;inset:0;background:#0d1117;display:none;align-items:center;
     justify-content:center;flex-direction:column;gap:14px;z-index:200;color:#cfe8ff;
@@ -93,13 +110,15 @@
   /* 手机右侧功能键 */
   #acts{position:fixed;right:16px;bottom:20px;display:none;flex-direction:column;gap:12px;z-index:30;align-items:flex-end}
   body.touch #acts{display:flex}
-  .actbtn{width:74px;height:74px;border-radius:50%;border:1px solid rgba(255,255,255,.28);
-    background:rgba(20,28,42,.74);color:#eaf4ff;font-size:15px;font-weight:600;
-    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-    box-shadow:0 6px 18px rgba(0,0,0,.35);touch-action:none;cursor:pointer}
-  .actbtn:active{background:rgba(90,169,255,.55);transform:scale(.96)}
+  .actbtn{width:74px;height:74px;border-radius:50%;border:3px solid #4a2e18;
+    background:radial-gradient(circle at 35% 30%,#f7e7c4,#d8a866 70%,#b0783c);
+    color:#3f2711;font-size:15px;font-weight:800;
+    box-shadow:inset 0 0 0 2px #fff3d0,0 6px 18px rgba(0,0,0,.4);touch-action:none;cursor:pointer;
+    text-shadow:0 1px 0 rgba(255,255,255,.5)}
+  .actbtn:active{filter:brightness(.92);transform:scale(.96)}
   .actbtn.sec{width:58px;height:58px;font-size:13px}
-  .actbtn.on{background:rgba(255,210,90,.55);border-color:#ffd25a;color:#1a1206}
+  .actbtn.on{background:radial-gradient(circle at 35% 30%,#fff6c4,#ffcf4a 70%,#e0a51f);
+    border-color:#8a5c12;color:#3a2405}
 </style>
 </head>
 <body>
@@ -411,9 +430,43 @@ function updateHint(){
 }
 
 /* ============ 绘制 ============ */
+/* 地面装饰层：只在可走区域撒草花石子，避免糊住建筑 */
+const decorCache = {};
+function decorLayer(id, w, h){
+  if(decorCache[id]) return decorCache[id];
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  let seed = 20261125;
+  const rnd = () => (seed = (seed*1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  const N = Math.round(w*h/700);
+  for(let i=0;i<N;i++){
+    const x = rnd()*w, y = rnd()*h;
+    if(!walkable(x,y)) continue;
+    const t = rnd();
+    if(t < 0.56){                     // 草丛
+      g.globalAlpha = 0.5; g.strokeStyle = '#3f7a32'; g.lineWidth = 1.5;
+      g.beginPath();
+      g.moveTo(x,y); g.lineTo(x-2.4,y-4);
+      g.moveTo(x,y); g.lineTo(x+2.4,y-4.2);
+      g.moveTo(x,y); g.lineTo(x+0.3,y-5.4);
+      g.stroke();
+    } else if(t < 0.82){              // 小花
+      g.globalAlpha = 0.6;
+      g.fillStyle = rnd()<0.5? '#f4dc72' : '#f7f7f2';
+      g.beginPath(); g.arc(x,y,1.6,0,7); g.fill();
+    } else {                          // 石子
+      g.globalAlpha = 0.5; g.fillStyle = '#8d8577';
+      g.beginPath(); g.ellipse(x,y,2.3,1.6,rnd()*3,0,7); g.fill();
+    }
+  }
+  g.globalAlpha = 1;
+  decorCache[id] = c;
+  return c;
+}
+
 function draw(){
   ctx.clearRect(0,0,cw,ch);
-  ctx.fillStyle = '#0d1117'; ctx.fillRect(0,0,cw,ch);
+  ctx.fillStyle = '#3a2615'; ctx.fillRect(0,0,cw,ch);
   const im = curImg();
   if(!im) return;
 
@@ -421,9 +474,16 @@ function draw(){
   const [ox,oy] = w2s(0,0);
   ctx.imageSmoothingQuality = 'high';
   ctx.drawImage(im, ox, oy, MW*zoom, MH*zoom);
-  // 地图边框
-  ctx.strokeStyle = 'rgba(90,169,255,.35)'; ctx.lineWidth = 2;
+  // 地面装饰（草花石子）
+  if(im.complete && im.naturalWidth){
+    const dl = decorLayer(curId(), MW, MH);
+    ctx.drawImage(dl, ox, oy, MW*zoom, MH*zoom);
+  }
+  // 地图边框（木框）
+  ctx.strokeStyle = '#4a2e18'; ctx.lineWidth = 6;
   ctx.strokeRect(ox, oy, MW*zoom, MH*zoom);
+  ctx.strokeStyle = 'rgba(220,174,116,.55)'; ctx.lineWidth = 2;
+  ctx.strokeRect(ox+3, oy+3, MW*zoom-6, MH*zoom-6);
 
   // 互动点
   for(const s of spots()){
@@ -433,23 +493,26 @@ function draw(){
     const pulse = 1 + 0.18*Math.sin(T*3 + s.x);
     const r = 13 * pulse;
 
-    ctx.beginPath(); ctx.arc(sx,sy,r+7,0,7); ctx.fillStyle = near? 'rgba(255,210,90,.28)':'rgba(90,169,255,.20)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(sx,sy,r+8,0,7); ctx.fillStyle = near? 'rgba(255,214,102,.45)':'rgba(120,90,50,.28)'; ctx.fill();
     ctx.beginPath(); ctx.arc(sx,sy,r,0,7);
-    ctx.fillStyle = s.img ? (near?'#ffd25a':'#5aa9ff') : 'rgba(150,170,200,.85)';
+    ctx.fillStyle = s.img ? (near?'#ffd25a':'#f0c060') : (near?'#e8d9b8':'#cdbfa2');
     ctx.fill();
-    ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.stroke();
+    ctx.lineWidth = 3; ctx.strokeStyle = '#4a2e18'; ctx.stroke();
+    ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(255,247,220,.85)'; ctx.stroke();
     // 中心
-    ctx.beginPath(); ctx.arc(sx,sy,4,0,7); ctx.fillStyle = 'rgba(13,17,23,.75)'; ctx.fill();
+    ctx.beginPath(); ctx.arc(sx,sy,4,0,7); ctx.fillStyle = 'rgba(74,46,24,.85)'; ctx.fill();
 
-    // 名字
-    ctx.font = '13px "Microsoft YaHei",sans-serif';
+    // 名字（羊皮纸牌）
+    ctx.font = 'bold 13px "Microsoft YaHei",sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
     const tw = ctx.measureText(s.name).width;
-    const ty = sy - r - 8;
-    ctx.fillStyle = 'rgba(10,16,26,.78)';
-    roundRect(sx-tw/2-7, ty-19, tw+14, 20, 6); ctx.fill();
-    ctx.fillStyle = s.img? '#eaf4ff' : '#a9bcd4';
-    ctx.fillText(s.name, sx, ty-3);
+    const ty = sy - r - 7;
+    ctx.fillStyle = '#4a2e18';
+    roundRect(sx-tw/2-8, ty-20, tw+16, 22, 5); ctx.fill();
+    ctx.fillStyle = '#f7e7c4';
+    roundRect(sx-tw/2-6, ty-18, tw+12, 18, 4); ctx.fill();
+    ctx.fillStyle = '#3f2711';
+    ctx.fillText(s.name, sx, ty-4);
 
     if(editMode && s===dragSpot){
       ctx.beginPath(); ctx.arc(sx,sy,r+13,0,7);
@@ -469,6 +532,14 @@ function drawPlayer(){
   const hop = player.moving ? Math.abs(Math.sin(player.walk)) * 3.4 * k : 0;
   const f = ((player.face % 8) + 8) % 8;
   ctx.save();
+  // 影子（贴地的椭圆，跳起来时变小变淡）
+  const lift = hop / Math.max(1, H);
+  ctx.globalAlpha = 0.30 - lift * 0.12;
+  ctx.fillStyle = '#1b2b14';
+  ctx.beginPath();
+  ctx.ellipse(sx, sy - 2, W*0.34*(1-lift*0.3), W*0.13*(1-lift*0.3), 0, 0, 7);
+  ctx.fill();
+  ctx.globalAlpha = 1;
   ctx.imageSmoothingQuality = 'high';
   if(spriteImg && spriteImg.complete && spriteImg.naturalWidth){
     ctx.drawImage(spriteImg, f*SPR_W, 0, SPR_W, SPR_H, sx - W/2, sy - H - hop, W, H);
